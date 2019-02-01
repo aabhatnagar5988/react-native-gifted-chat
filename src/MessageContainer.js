@@ -20,11 +20,15 @@ export default class MessageContainer extends React.PureComponent {
 
   state = {
     showScrollBottom: false,
+    messages:[]
   };
 
   componentDidMount() {
     if (this.props.messages.length === 0) {
       this.attachKeyboardListeners();
+    }
+    else {
+      this.setState({messages:this.props.messages})
     }
   }
 
@@ -37,6 +41,10 @@ export default class MessageContainer extends React.PureComponent {
       this.detachKeyboardListeners();
     } else if (this.props.messages.length > 0 && nextProps.messages.length === 0) {
       this.attachKeyboardListeners(nextProps);
+    }
+
+    if(nextProps.messages.length>0){
+      this.setState({messages:nextProps.messages})
     }
   }
 
@@ -163,7 +171,7 @@ export default class MessageContainer extends React.PureComponent {
           enableEmptySections
           automaticallyAdjustContentInsets={false}
           inverted={this.props.inverted}
-          data={this.props.messages}
+          data={this.state.messages}
           style={styles.listStyle}
           contentContainerStyle={styles.contentContainerStyle}
           renderItem={this.renderRow}
