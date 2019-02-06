@@ -140,7 +140,7 @@ export default class Bubble extends React.Component {
       }
       return (
         <View style={styles.usernameView}>
-          <Text style={[styles.username, this.props.usernameStyle]}>~ {currentMessage.user.name}</Text>
+          <Text style={[styles.username, this.props.usernameStyle]}>{currentMessage.user.name}</Text>
         </View>
       );
     }
@@ -171,12 +171,12 @@ export default class Bubble extends React.Component {
             {...this.props.touchableProps}
           >
             <View>
+              {this.renderUsername()}
               {this.renderCustomView()}
               {this.renderMessageImage()}
               {this.renderMessageVideo()}
               {this.renderMessageText()}
-              <View style={[styles[this.props.position].bottom, this.props.bottomContainerStyle[this.props.position]]}>
-                {this.renderUsername()}
+              <View style={[styles[this.props.position].bottom, this.props.bottomContainerStyle[this.props.position]]}>  
                 {this.renderTime()}
                 {this.renderTicks()}
               </View>
@@ -246,11 +246,9 @@ const styles = {
     marginRight: 10,
   },
   username: {
-    top: -3,
-    left: 0,
-    fontSize: 12,
+    fontSize: 16,
     backgroundColor: 'transparent',
-    color: '#aaa',
+    color: '#fff',
   },
   usernameView: {
     flexDirection: 'row',

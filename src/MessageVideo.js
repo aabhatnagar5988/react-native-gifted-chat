@@ -3,11 +3,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { StyleSheet, View, ViewPropTypes } from 'react-native';
-
-
-let Video;
-Video = require('react-native-video');
-
+import Video from 'react-native-video';
 
 export default function MessageVideo({ containerStyle, videoProps, videoStyle, currentMessage }) {
   return (
