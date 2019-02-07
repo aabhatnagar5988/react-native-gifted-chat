@@ -140,7 +140,7 @@ export default class Bubble extends React.Component {
       }
       return (
         <View style={styles.usernameView}>
-          <Text style={[styles.username, this.props.usernameStyle]}>{currentMessage.user.name}</Text>
+          <Text style={[styles.username, this.props.usernameStyle]}>~{currentMessage.user.name}</Text>
         </View>
       );
     }
@@ -248,8 +248,9 @@ const styles = {
   username: {
     fontSize: 16,
     backgroundColor: 'transparent',
-    color: '#fff',
+    color: '#1a9460',
   },
+  
   usernameView: {
     flexDirection: 'row',
     marginHorizontal: 10,
