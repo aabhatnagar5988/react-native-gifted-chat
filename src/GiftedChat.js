@@ -21,6 +21,8 @@ import Bubble from './Bubble';
 import SystemMessage from './SystemMessage';
 import MessageImage from './MessageImage';
 import MessageText from './MessageText';
+import MessageDocument from './MessageDocument';
+import MessageVideo from './MessageVideo';
 import Composer from './Composer';
 import Day from './Day';
 import InputToolbar from './InputToolbar';
@@ -540,6 +542,7 @@ GiftedChat.defaultProps = {
   renderMessageText: null,
   renderMessageImage: null,
   imageProps: {},
+  documentProps: {},
   videoProps: {},
   lightboxProps: {},
   textInputProps: {},
@@ -599,6 +602,7 @@ GiftedChat.propTypes = {
   renderMessageText: PropTypes.func,
   renderMessageImage: PropTypes.func,
   imageProps: PropTypes.object,
+  documentProps: PropTypes.object,
   videoProps: PropTypes.object,
   lightboxProps: PropTypes.object,
   renderCustomView: PropTypes.func,
@@ -634,6 +638,8 @@ export {
   SystemMessage,
   MessageImage,
   MessageText,
+  MessageVideo,
+  MessageDocument,
   Composer,
   Day,
   InputToolbar,

@@ -5,21 +5,21 @@ import React from 'react';
 import { StyleSheet, View, ViewPropTypes } from 'react-native';
 import Video from 'react-native-video';
 
-export default function MessageVideo({ containerStyle, videoProps, videoStyle, currentMessage }) {
+export default function MessageVideo({ videoUrl,videoStyle }) {
   return (
     // eslint-disable-next-line no-use-before-define
-    <View style={[styles.container, containerStyle]}>
+    <View style={{flex:1,backgroundColor:'black'}}>
       <Video
-        {...videoProps}
         ref={(r) => {
           this.player = r;
         }}
-        source={{ uri: currentMessage.video }}
+        source={{ uri: videoUrl }}
         style={videoStyle}
-        resizeMode="cover"
+        resizeMode="none"
         onBuffer={this.onBuffer}
         onLoadStart={this.onLoadStart}
         onLoad={this.onLoad}
+        controls={true}
       />
     </View>
   );
@@ -35,9 +35,9 @@ MessageVideo.defaultProps = {
   },
   containerStyle: {},
   videoStyle: {
-    width: 150,
-    height: 100,
-    borderRadius: 13,
+    width: '100%',
+    height:'100%',
+    borderRadius: 0,
     margin: 3,
   },
   videoProps: {},

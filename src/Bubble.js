@@ -7,6 +7,8 @@ import { Text, Clipboard, StyleSheet, TouchableWithoutFeedback, View, ViewPropTy
 import MessageText from './MessageText';
 import MessageImage from './MessageImage';
 import MessageVideo from './MessageVideo';
+import MessageVideoUpdated from './MessageVideoUpdated';
+import MessageDocument from './MessageDocument'
 
 import Time from './Time';
 import Color from './Color';
@@ -90,13 +92,22 @@ export default class Bubble extends React.Component {
     return null;
   }
 
+  renderMessageDocument() {
+    if (this.props.currentMessage.document) {
+      const { containerStyle, wrapperStyle, ...messageDocumentProps } = this.props;
+     
+      return <MessageDocument {...messageDocumentProps} />;
+    }
+    return null;
+  }
+
   renderMessageVideo() {
     if (this.props.currentMessage.video) {
       const { containerStyle, wrapperStyle, ...messageVideoProps } = this.props;
       if (this.props.renderMessageVideo) {
         return this.props.renderMessageVideo(messageVideoProps);
       }
-      return <MessageVideo {...messageVideoProps} />;
+      return <MessageVideoUpdated {...messageVideoProps} />;
     }
     return null;
   }
@@ -174,6 +185,7 @@ export default class Bubble extends React.Component {
               {this.renderUsername()}
               {this.renderCustomView()}
               {this.renderMessageImage()}
+              {this.renderMessageDocument()}
               {this.renderMessageVideo()}
               {this.renderMessageText()}
               <View style={[styles[this.props.position].bottom, this.props.bottomContainerStyle[this.props.position]]}>  
