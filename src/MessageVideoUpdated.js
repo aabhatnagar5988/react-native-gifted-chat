@@ -2,8 +2,16 @@
 
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Image, StyleSheet, View, ViewPropTypes,TouchableOpacity,ImageBackground } from 'react-native';
-
+import {
+  Image,
+  StyleSheet,
+  View,
+  Text,
+  ViewPropTypes,
+  TouchableOpacity,
+  ImageBackground,
+  ActivityIndicator,
+} from 'react-native';
 
 export default function MessageImage({
   containerStyle,
@@ -11,26 +19,42 @@ export default function MessageImage({
   imageProps,
   imageStyle,
   currentMessage,
+  refreshButton,
   playButton,
   playClick,
 }) {
+  console.log('C. Msg. -> ', JSON.stringify(currentMessage));
+  if (!currentMessage.mediaStatus) {
+    currentMessage.mediaStatus = '';
+  }
   return (
     <View style={[styles.container, containerStyle]}>
-     
-     <TouchableOpacity onPress={()=>{playClick(currentMessage.video)}}>
+      <TouchableOpacity
+        onPress={() => {
+          const retryId = currentMessage.mediaStatus.includes('Fail') ? currentMessage._id : null;
+          playClick(currentMessage.video, retryId);
+        }}
+      >
         <ImageBackground
           {...imageProps}
-          style={[styles.image, imageStyle, {alignItems:'center',justifyContent:'center'}]}
+          style={[
+            styles.image,
+            imageStyle,
+            { alignItems: 'center', justifyContent: 'center' },
+          ]}
           source={{ uri: currentMessage.media_thumb }}
         >
-            
-         <Image
-          source={playButton}
-          style={{width:60,height:60}}
-         ></Image>   
-           
+          {!(/Fail|Uploading/.test(currentMessage.mediaStatus)) && (
+            <Image source={playButton} style={{ width: 60, height: 60 }} />
+          )}
+          {currentMessage.mediaStatus.includes('Fail') && (
+            <Text style={styles.refresh}>
+              Retry
+            </Text>
+          )}
         </ImageBackground>
-        </TouchableOpacity>
+      </TouchableOpacity>
+      {currentMessage.mediaStatus.includes('Uploading') && <ActivityIndicator style={StyleSheet.absoluteFill} color="#16d097" size="large" />}
     </View>
   );
 }
@@ -47,6 +71,13 @@ const styles = StyleSheet.create({
   imageActive: {
     flex: 1,
     resizeMode: 'contain',
+  },
+  refresh: {
+    paddingVertical: 3,
+    paddingHorizontal: 7,
+    borderRadius: 5,
+    backgroundColor: '#0009',
+    color: '#FFF',
   },
 });
 
